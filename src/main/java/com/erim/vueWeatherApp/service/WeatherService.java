@@ -28,11 +28,18 @@ public class WeatherService {
      */
     public String getWeatherForCity(String cityName) throws URISyntaxException, IOException, InterruptedException {
 
+
+        System.out.println(cityName);
+        String city =cityName.replaceAll(" ","%20");
         //api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
-        String uri = "https://api.openweathermap.org/data/2.5/weather?q="+cityName+"&appid="+OPEN_WEATHER_API_KEY+ "&units=metric";
+        String uri = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+OPEN_WEATHER_API_KEY+ "&units=metric";
+
+        System.out.println(uri);
+
         HttpClient client = HttpClient.newHttpClient();
+        URI uris = new URI(uri);
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI(uri))
+                .uri(uris)
                 .header("Accept","application/json")
                 .GET()
                 .build();
