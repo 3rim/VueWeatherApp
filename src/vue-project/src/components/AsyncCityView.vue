@@ -3,7 +3,7 @@
 
             <!--Banner-->
             <div v-if="route.query.preview" class="text-white p-4 bg-weather-secondary w-full text-center">
-                <p>Previewing this city</p>
+                <p>Previewing this city. To start tracking click the "+" icon</p>
             </div>
             <!--Weather data-->
             <div class="flex flex-col items-center text-white py-12">
@@ -28,12 +28,19 @@
 
         <hr class="border-white border-opacity-10 border w-full" />
         <!-- hour-->
+
+        <div class="flex items-center gap-2 py-12 text-white cursor-pointer duration-150 hover:text-red-600"
+        @click="removeCity"
+        v-if="!route.query.preview">
+            <i class="fa-solid fa-trash"></i>
+            <p>Remove City from tracking</p>
+        </div>
     </div>
 </template>
 
 <script setup>
 import axios from 'axios';
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 
 
 const route = useRoute();
@@ -51,4 +58,17 @@ const getWeatherData =async () => {
 const weatherData = await getWeatherData();
 console.log(weatherData.data.main.temp);
 //"weatherData.data.main.temp"
+
+const router = useRouter();
+const removeCity = () =>{
+    const cities = JSON.parse(localStorage.getItem("savedCities"));
+    const updatedCities = cities.filter(
+        (city) => city.id !== route.query.id
+        );
+
+    localStorage.setItem("savedCities",JSON.stringify(updatedCities));
+    router.push({
+        name: "home",
+    });
+};
 </script>

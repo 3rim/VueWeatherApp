@@ -17,7 +17,12 @@
         </div>
         
         <BaseModal :modalActive="modalActive" @close-modal="toggleModal">
-            <h1 class="text-black">This is a learning Project asdasdasdasdasdada</h1>
+            <h1 class="text-black">
+              This is a learning Project build with Vue.js, Spring boot
+              and openweathermap-API
+              <br>
+              
+            </h1>
         </BaseModal>
         </nav>
     </header>
@@ -54,6 +59,7 @@ const addCity = () => {
   );
   let query = Object.assign({}, route.query);
   delete query.preview;
+  query.id = locationObj.id;
   router.replace({ query });
 };
 </script>
