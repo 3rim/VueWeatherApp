@@ -47,6 +47,7 @@ const route = useRoute();
 const getWeatherData =async () => {
     try {
         const weatherData = axios.get(`/api/getWeather/${route.params.city}`);
+        //TODO: City not found 
         
         //console.log((await weatherData).data.message);
         return weatherData;
@@ -56,8 +57,6 @@ const getWeatherData =async () => {
 };
 
 const weatherData = await getWeatherData();
-console.log(weatherData.data.main.temp);
-//"weatherData.data.main.temp"
 
 const router = useRouter();
 const removeCity = () =>{
